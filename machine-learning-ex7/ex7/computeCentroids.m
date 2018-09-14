@@ -26,11 +26,15 @@ centroids = zeros(K, n);
 % Note: You can use a for-loop over the centroids to compute this.
 %
 
+% For loop solution
+for k = 1:K
+  % Get all rows of X assigned to centroid k
+  X_k =  X(find(idx==k),:);
+  % Compute the mean of all these rows(points), this is the new centroid
+  centroids(k,:) = (1 / size(X_k,1)) * ( sum(X_k) );
+endfor
 
-
-
-
-
+% Vectorized solution?
 
 
 % =============================================================
