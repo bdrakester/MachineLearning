@@ -40,20 +40,30 @@ Theta_grad = zeros(size(Theta));
 %                     partial derivatives w.r.t. to each element of Theta
 %
 
+% Calclate all the predictions
+predictions = X * Theta';
 
+% Remove predictions that don't have a corresponding user rating 
+% ie. where R(i,j) = 0 set prediction = 0
+predictions = predictions .* R;
 
+diff = predictions - Y;
 
+% Unregularized cost 
+J = (1/2) * sum( sum ( (diff).^2 ) );
 
+% Regularized cost
+J = J + (lambda/2) * (sum(sum(Theta.^2))) + (lambda/2) * (sum(sum(X.^2)));
 
+% Unregularized gradients
+X_grad = diff * Theta;
 
+Theta_grad = diff' * X;
 
+% Regularized gradients
+X_grad = X_grad + (lambda * X);
 
-
-
-
-
-
-
+Theta_grad = Theta_grad + (lambda * Theta);
 
 % =============================================================
 
